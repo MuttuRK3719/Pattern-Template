@@ -31,3 +31,43 @@ static int maxSubArray(int []arr,int k){
         return maxLength;
     }
 }
+class Solution {
+    static {
+        int[]arr1=new int[2];
+        for(int i=0;i<500;i++){
+            maxScore(arr1,1);
+        }
+    }
+https://leetcode.com/problems/maximum-points-you-can-obtain-from-cards/
+    public static int maxScore(int[] cardPoints, int k) {
+     int LeftSum=0,RightSum=0,maxSum=0;
+     for(int i=0;i<k;i++){
+        LeftSum+=cardPoints[i];
+     }   
+     maxSum=LeftSum;
+     int n=cardPoints.length-1;
+     for(int i=k-1;i>=0;i--){
+        LeftSum-=cardPoints[i];
+        RightSum+=cardPoints[n--];
+        maxSum=Math.max(maxSum,LeftSum+RightSum);
+     }
+     return maxSum;
+    }
+}
+static int maxdub(String st){
+    int l=0,r=0,n=st.length();
+    int mx=0;
+    int []hash=new int[256];
+    while(r<n){
+        char ch=st.charAt(r);
+        if(hash[ch]!=0){
+            l=hash[ch];      // ← PROBLEM HERE
+        }
+        int len=r-l+1;
+        mx=Math.max(mx,len);
+        hash[ch]=r+1;
+        r++;
+    }
+    return mx-1;
+}
+
