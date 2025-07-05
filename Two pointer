@@ -16,4 +16,18 @@ static int maxSubArray(int []arr,int k){
         }
         return maxLength;
     }
+// optimized instead of while we check only one time we not need to decrease the size of the window bcz already i have bigger window size
+   static int maxSubArray(int []arr,int k){
+        int sum=0,left=0,right=0,maxLength=0;
+        while(right<arr.length){
+            sum+=arr[right];
+            if(sum>k){
+                sum-=arr[left];
+                left++;
+            }
+            if(sum<=k)maxLength=Math.max(maxLength,right-left+1);
+            right++;
+        }
+        return maxLength;
+    }
 }
