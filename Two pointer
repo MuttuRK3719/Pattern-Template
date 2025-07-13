@@ -106,3 +106,25 @@ https://leetcode.com/problems/remove-element/?envType=problem-list-v2&envId=two-
         }
         return left;
     }
+https://leetcode.com/problems/backspace-string-compare/?envType=problem-list-v2&envId=two-pointers  using stack
+public boolean backspaceCompare(String s, String t) {
+        Stack<Character> stack=new Stack<>();
+        Stack<Character> stack1=new Stack<>();
+        for(char ch:s.toCharArray()){
+            if(!stack.isEmpty()&&ch=='#'){
+                stack.pop();
+            }
+            else if(ch!='#') stack.push(ch);
+        }
+
+        for(char ch:t.toCharArray()){
+            if(!stack1.isEmpty()&&ch=='#') stack1.pop();
+            else if(ch!='#') stack1.push(ch);
+        }
+        if(stack.size()!=stack1.size()) return false;
+        int n=stack.size();
+        for(int i=0;i<n;i++){
+            if(stack.pop()!=stack1.pop()) return false;
+        }
+        return true;
+    }
