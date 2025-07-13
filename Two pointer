@@ -128,3 +128,23 @@ public boolean backspaceCompare(String s, String t) {
         }
         return true;
     }
+     public boolean backspaceCompare(String s, String t) {
+        char[]ch1=s.toCharArray();
+        char[]ch2=t.toCharArray();
+
+     int i=processString(ch1);
+     int j=processString(ch2);
+     if(j!=i) return false;
+     for(int k=0;k<i;k++){
+        if(ch1[k]!=ch2[k]) return false;
+     }
+     return true;
+    }
+    static int processString(char[]ch){
+        int k=0;
+        for(char c:ch){
+            if(c!='#')ch[k++]=c;
+            else if(k>0)k--;
+        }
+        return k;
+    }
