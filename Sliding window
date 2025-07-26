@@ -38,3 +38,20 @@ static List<Integer>firstNeg(int []arr,int k){
         }
         return result;
     }
+
+int []arr={2, 1, 5, 2, 3, 2};
+        System.out.println(maxSubArray(arr,7));--------------------------->>>>>>>>>>>>>>>>>>>>>>>  2
+static int maxSubArray(int []arr,int k){
+        int sum=0,left=0,right=0,maxLength=Integer.MAX_VALUE;
+        while(right<arr.length){
+            sum+=arr[right];
+            if(sum>=k)
+            maxLength=Math.min(maxLength,right-left+1);
+            while(sum>=k){
+                maxLength=Math.min(maxLength,right-left+1);
+                sum-=arr[left++];
+            }
+            right++;
+        }
+        return (maxLength==Integer.MAX_VALUE)?0:maxLength;
+    }
