@@ -55,3 +55,22 @@ static int maxSubArray(int []arr,int k){
         }
         return (maxLength==Integer.MAX_VALUE)?0:maxLength;
     }
+
+bruate force approch
+static int longestSubString(String s,int k){
+        int maxLength=0;
+        for(int i=0;i<s.length();i++){
+            Map<Character,Integer> fre=new HashMap<>();
+            for(int j=i;j<s.length();j++){
+                char ch=s.charAt(j);
+                fre.put(ch,fre.getOrDefault(ch,0)+1);
+                if(fre.size()<=k){
+                    maxLength=Math.max(maxLength,j-i+1);
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        return maxLength;
+    }
