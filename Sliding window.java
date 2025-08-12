@@ -19,6 +19,27 @@ class Main {
         }
         return result;
     }
+        static int longestSubString(String s, int k) {
+        int maxLength = 0;
+        Map<Character, Integer> fre = new HashMap<>();
+        int left = 0;
+
+        for (int right = 0; right < s.length(); right++) {
+            char ch = s.charAt(right);
+            fre.put(ch, fre.getOrDefault(ch, 0) + 1);
+
+            while (fre.size() > k) {
+                char ch1 = s.charAt(left);
+                fre.put(ch1, fre.get(ch1) - 1);
+                if (fre.get(ch1) == 0) {
+                    fre.remove(ch1);
+                }
+                left++;
+            }
+
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+
 
 System.out.println(firstNeg(new int[]{1,3,-1,-3,5,3,6,7},3));-------------->>>>>>>>>>>[3, 3, 5, 5, 6, 7]
 
