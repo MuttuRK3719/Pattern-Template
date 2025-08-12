@@ -95,3 +95,22 @@ static int longestSubString(String s,int k){
         }
         return maxLength;
     }
+Optimized Solution
+        static int longestSubString(String s,int k){
+        int maxLength=-1;
+        int left=0;
+        Map<Character,Integer> fre=new HashMap<>();
+        for(int right=0;right<s.length();right++){
+            char ch=s.charAt(right);
+            fre.put(ch,fre.getOrDefault(ch,0)+1);
+            if(fre.size()>k){
+                ch=s.charAt(left);
+                fre.put(ch,fre.get(ch)-1);
+                if(fre.get(ch)==0) fre.remove(ch);
+                left++;
+            }
+            if(fre.size()<=k)
+            maxLength=Math.max(maxLength,right-left+1);
+        }
+        return maxLength;
+    }
