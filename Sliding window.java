@@ -135,3 +135,18 @@ https://leetcode.com/problems/binary-subarrays-with-sum/
         }
         return count;
     }
+
+            Using Map 21ms
+            
+    public int numSubarraysWithSum(int[] nums, int goal) {
+        int count=0;
+        int sum=0;
+        Map<Integer,Integer> fre=new HashMap<>();
+        fre.put(0,1);
+        for(int num:nums){
+            sum+=num;
+            count+=fre.getOrDefault(sum-goal,0);
+            fre.put(sum,fre.getOrDefault(sum,0)+1);
+        }
+        return count;
+    }
