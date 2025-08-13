@@ -150,3 +150,84 @@ https://leetcode.com/problems/binary-subarrays-with-sum/
         }
         return count;
     }
+
+https://leetcode.com/problems/count-number-of-nice-subarrays/
+    public int numberOfSubarrays(int[] nums, int k) {
+        return getPosibleSubArray(nums, k) - getPosibleSubArray(nums, k - 1);
+    }
+
+    public int getPosibleSubArray(int[] nums, int k) {
+        if (k < 0) return 0;
+        int left = 0, sum = 0, count = 0;
+        for (int right = 0; right < nums.length; right++) {
+            sum += nums[right] % 2;
+            while (sum > k) {
+                sum -= nums[left++] % 2;
+            }
+            count += right - left + 1;
+        }
+        return count;
+    }
+      ------------------------2ms------------------------------
+      public int numberOfSubarrays(int[] nums, int k) {
+        int result = 0;
+        int oddSum = 0;
+        int[] count = new int[nums.length + 1];
+        count[0] = 1;
+        for (int num : nums) {
+            oddSum += num & 1;
+            if (oddSum >= k) {
+                result += count[oddSum - k];
+            }
+            count[oddSum]++;
+        }
+        return result;
+    }
+    https://leetcode.com/problems/subarrays-with-k-different-integers/
+    public int subarraysWithKDistinct(int[] nums, int k) {
+     return generateSubArray(nums,k)-generateSubArray(nums,k-1);  
+    }
+    int generateSubArray(int []nums,int k){
+        if(k<0) return 0;
+        int left=0,count=0;
+        Map<Integer,Integer> fre=new HashMap<>();
+        for(int right=0;right<nums.length;right++){
+            fre.put(nums[right],fre.getOrDefault(nums[right],0)+1);
+            while(fre.size()>k){
+                fre.put(nums[left],fre.get(nums[left])-1);
+                if(fre.get(nums[left])==0)fre.remove(nums[left]);
+                left++;
+            }
+            count+=right-left+1;
+        }
+        return count;
+    }
+
+        public static int subarraysWithKDistinct(int[] nums, int k) {
+        int len = nums.length;
+        int freq[] = new int[len + 1];
+        int elementCount = 0;
+        int result = 0;
+        int left = 0;
+        int mid = 0;
+
+        for(int right = 0; right < len; right++){
+            if(++freq[nums[right]] == 1) elementCount++;
+
+            while(elementCount > k){
+                if(--freq[nums[mid++]] == 0){
+                    elementCount--;
+                    left = mid;
+                }
+            }
+
+            while(freq[nums[mid]] > 1){
+                freq[nums[mid++]]--;
+            }
+
+            if(elementCount == k){
+                result += mid - left + 1;
+            }
+        }
+        return result;
+    }
