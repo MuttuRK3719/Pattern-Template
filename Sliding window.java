@@ -114,3 +114,24 @@ Optimized Solution
         }
         return maxLength;
     }
+
+https://leetcode.com/problems/binary-subarrays-with-sum/
+
+    public int numSubarraysWithSum1(int[] nums, int goal) {
+        return getInit(nums, goal) - getInit(nums, goal - 1);
+    }
+
+    int getInit(int[] nums, int goal) {
+        if(goal<0) return 0;
+        int count = 0;
+        int left = 0;
+        int sum = 0;
+        for (int right = 0; right < nums.length; right++) {
+            sum += nums[right];
+            while (sum > goal) {
+                sum -= nums[left++];
+            }
+            count += right - left + 1;
+        }
+        return count;
+    }
